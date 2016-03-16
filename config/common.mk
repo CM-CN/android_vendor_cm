@@ -77,6 +77,10 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/cm/CHANGELOG.mkdn:system/etc/CHANGELOG-CM.txt
 
+# Busybox
+PRODUCT_COPY_FILES += \
+    vendor/cm/prebuilt/common/xbin/busybox:system/xbin/busybox
+
 # Backup Tool
 ifneq ($(WITH_GMS),true)
 PRODUCT_COPY_FILES += \
@@ -105,6 +109,14 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/cm/prebuilt/common/etc/init.local.rc:root/init.cm.rc
 
+# Google PinYin
+PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
+    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.apk' \
+    -printf '%p:system/app/GooglePinYin/%f ')
+PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
+    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.so' \
+    -printf '%p:system/app/GooglePinYin/lib/arm/%f ')
+
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
     vendor/cm/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
@@ -120,6 +132,10 @@ PRODUCT_COPY_FILES += \
 # This is CM!
 PRODUCT_COPY_FILES += \
     vendor/cm/config/permissions/com.cyanogenmod.android.xml:system/etc/permissions/com.cyanogenmod.android.xml
+
+# Phonelocation!
+PRODUCT_COPY_FILES +=  \
+    vendor/cm/prebuilt/common/media/location/suda-phonelocation.dat:system/media/location/suda-phonelocation.dat
 
 # Theme engine
 include vendor/cm/config/themes_common.mk
@@ -151,7 +167,7 @@ PRODUCT_PACKAGES += \
     CMFileManager \
     Eleven \
     LockClock \
-    CMUpdater \
+    PhoneLocationProvider \
     CyanogenSetupWizard \
     CMSettingsProvider \
     ExactCalculator
