@@ -170,7 +170,8 @@ PRODUCT_PACKAGES += \
     PhoneLocationProvider \
     CyanogenSetupWizard \
     CMSettingsProvider \
-    ExactCalculator
+    ExactCalculator \
+    LiveLockScreenService
 
 # Exchange support
 PRODUCT_PACKAGES += \
