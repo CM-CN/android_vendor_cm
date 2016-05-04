@@ -77,10 +77,6 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/cm/CHANGELOG.mkdn:system/etc/CHANGELOG-CM.txt
 
-# Busybox
-PRODUCT_COPY_FILES += \
-    vendor/cm/prebuilt/common/xbin/busybox:system/xbin/busybox
-
 # Backup Tool
 ifneq ($(WITH_GMS),true)
 PRODUCT_COPY_FILES += \
