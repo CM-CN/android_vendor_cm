@@ -169,21 +169,14 @@ PRODUCT_PACKAGES += \
     CMFileManager \
     Eleven \
     LockClock \
+    CyanogenSetupWizard \
     PhoneLocationProvider \
     CMSettingsProvider \
-    OmniSwitch \
     ExactCalculator \
     LiveLockScreenService \
     WeatherProvider \
     DataUsageProvider \
     WallpaperPicker
-
-# DU Utils Library
-PRODUCT_PACKAGES += \
-    org.dirtyunicorns.utils
-
-PRODUCT_BOOT_JARS += \
-    org.dirtyunicorns.utils
 
 # Exchange support
 PRODUCT_PACKAGES += \
