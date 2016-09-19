@@ -131,6 +131,22 @@ ifneq ($(TARGET_DISABLE_CMSDK), true)
 include vendor/cm/config/cmsdk_common.mk
 endif
 
+# Phonelocation!
+PRODUCT_COPY_FILES +=  \
+    vendor/cm/prebuilt/common/media/location/suda-phonelocation.dat:system/media/location/suda-phonelocation.dat
+
+# Google PinYin
+PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
+    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.apk' \
+    -printf '%p:system/app/GooglePinYin/%f ')
+PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
+    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.so' \
+    -printf '%p:system/app/GooglePinYin/lib/arm/%f ')
+
+#SMWeatherProvider
+PRODUCT_COPY_FILES += \
+    vendor/cm/prebuilt/SMWeatherProvider/SMWeatherProvider.apk:system/app/SMWeatherProvider/SMWeatherProvider.apk
+
 # Required CM packages
 PRODUCT_PACKAGES += \
     BluetoothExt \
@@ -159,7 +175,6 @@ PRODUCT_PACKAGES += \
     Eleven \
     LockClock \
     CMUpdater \
-    CyanogenSetupWizard \
     CMSettingsProvider \
     ExactCalculator \
     LiveLockScreenService \
