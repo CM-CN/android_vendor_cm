@@ -3,7 +3,7 @@ PRODUCT_BRAND ?= cyanogenmod
 ifneq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
 # determine the smaller dimension
 TARGET_BOOTANIMATION_SIZE := $(shell \
-  if [ $(TARGET_SCREEN_WIDTH) -lt $(TARGET_SCREEN_HEIGHT) ]; then \
+  if [ "$(TARGET_SCREEN_WIDTH)" -lt "$(TARGET_SCREEN_HEIGHT)" ]; then \
     echo $(TARGET_SCREEN_WIDTH); \
   else \
     echo $(TARGET_SCREEN_HEIGHT); \
@@ -17,7 +17,7 @@ bootanimation_sizes := $(shell echo -e $(subst $(space),'\n',$(bootanimation_siz
 define check_and_set_bootanimation
 $(eval TARGET_BOOTANIMATION_NAME := $(shell \
   if [ -z "$(TARGET_BOOTANIMATION_NAME)" ]; then
-    if [ $(1) -le $(TARGET_BOOTANIMATION_SIZE) ]; then \
+    if [ "$(1)" -le "$(TARGET_BOOTANIMATION_SIZE)" ]; then \
       echo $(1); \
       exit 0; \
     fi;
@@ -107,18 +107,6 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/cm/prebuilt/common/etc/init.local.rc:root/init.cm.rc
 
-# Google PinYin
-PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
-    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.apk' \
-    -printf '%p:system/app/GooglePinYin/%f ')
-PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
-    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.so' \
-    -printf '%p:system/app/GooglePinYin/lib/arm/%f ')
-
-#SMWeatherProvider
-PRODUCT_COPY_FILES += \
-    vendor/cm/prebuilt/SMWeatherProvider/SMWeatherProvider.apk:system/app/SMWeatherProvider/SMWeatherProvider.apk
-
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
     vendor/cm/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
@@ -135,23 +123,21 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/cm/config/permissions/com.cyanogenmod.android.xml:system/etc/permissions/com.cyanogenmod.android.xml
 
-# Phonelocation!
-PRODUCT_COPY_FILES +=  \
-    vendor/cm/prebuilt/common/media/location/suda-phonelocation.dat:system/media/location/suda-phonelocation.dat
-
 # Theme engine
 include vendor/cm/config/themes_common.mk
 
+ifneq ($(TARGET_DISABLE_CMSDK), true)
 # CMSDK
 include vendor/cm/config/cmsdk_common.mk
+endif
 
 # Required CM packages
 PRODUCT_PACKAGES += \
-    CMAudioService \
-    Development \
     BluetoothExt \
+    CMAudioService \
+    CMParts \
+    Development \
     Profiles \
-    ThemeManagerService \
     WeatherManagerService
 
 # Optional CM packages
@@ -172,14 +158,12 @@ PRODUCT_PACKAGES += \
     CMFileManager \
     Eleven \
     LockClock \
+    CMUpdater \
     CyanogenSetupWizard \
-    PhoneLocationProvider \
     CMSettingsProvider \
     ExactCalculator \
     LiveLockScreenService \
-    WeatherProvider \
-    DataUsageProvider \
-    WallpaperPicker
+    WeatherProvider
 
 # Exchange support
 PRODUCT_PACKAGES += \
@@ -258,9 +242,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 DEVICE_PACKAGE_OVERLAYS += vendor/cm/overlay/common
 
-PRODUCT_VERSION_MAJOR = 13
+PRODUCT_VERSION_MAJOR = 14
 PRODUCT_VERSION_MINOR = 0
-PRODUCT_VERSION_MAINTENANCE := 2
+PRODUCT_VERSION_MAINTENANCE := 0
 
 ifeq ($(TARGET_VENDOR_SHOW_MAINTENANCE_VERSION),true)
     CM_VERSION_MAINTENANCE := $(PRODUCT_VERSION_MAINTENANCE)
@@ -375,7 +359,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ro.cm.display.version=$(CM_DISPLAY_VERSION)
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
-
+-include vendor/cm/config/partner_gms.mk
 -include vendor/cyngn/product.mk
 
 $(call prepend-product-if-exists, vendor/extra/product.mk)

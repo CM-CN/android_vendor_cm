@@ -36,7 +36,7 @@
 #include <sys/timerfd.h>
 #include <linux/rtc.h>
 
-#include "healthd.h"
+#include "healthd/healthd.h"
 #include "minui/minui.h"
 
 #define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
@@ -79,19 +79,16 @@ static int draw_surface_centered(GRSurface* surface)
 #define STR_LEN 64
 static void draw_capacity(int capacity)
 {
-    char cap_str[STR_LEN];
-    snprintf(cap_str, (STR_LEN - 1), "%d%%", capacity);
-
     struct frame *f = &anim.frames[0];
-    int font_x, font_y;
-    gr_font_size(&font_x, &font_y);
-    int w = gr_measure(cap_str);
+    int w = gr_get_width(f->surface);
     int h = gr_get_height(f->surface);
-    int x = (gr_fb_width() - w) / 2;
+    int x = (gr_fb_width() - w) / 2 ;
     int y = (gr_fb_height() + h) / 2;
 
+    char cap_str[STR_LEN];
+    snprintf(cap_str, (STR_LEN - 1), "%d%%", capacity);
     gr_color(255, 255, 255, 255);
-    gr_text(x, y + font_y / 2, cap_str, 0);
+    gr_text(x, y * 1.05, cap_str, 0);
 }
 
 #ifdef QCOM_HARDWARE
@@ -297,9 +294,11 @@ void healthd_board_init(struct healthd_config*)
     char value[PROP_VALUE_MAX];
     int rc = 0, scale_count = 0, i;
     GRSurface **scale_frames;
+    int scale_fps;  // Not in use (charger/cm_battery_scale doesn't have FPS text
+                    // chunk). We are using hard-coded frame.disp_time instead.
 
     rc = res_create_multi_display_surface("charger/cm_battery_scale",
-            &scale_count, &scale_frames);
+            &scale_fps, &scale_count, &scale_frames);
     if (rc < 0) {
         LOGE("%s: Unable to load battery scale image", __func__);
         return;
