@@ -186,6 +186,7 @@ PRODUCT_PACKAGES += \
     LockClock \
     CMUpdater \
     CyanogenSetupWizard \
+    PhoneLocationProvider \
     CMSettingsProvider \
     ExactCalculator \
     LiveLockScreenService \
