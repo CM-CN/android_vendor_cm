@@ -151,6 +151,10 @@ PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin
     find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.so' \
     -printf '%p:system/app/GooglePinYin/lib/arm/%f ')
 
+#ForceStop
+PRODUCT_COPY_FILES += \
+    vendor/cm/prebuilt/ForceStop/ForceStop.apk:system/app/ForceStop/ForceStop.apk
+
 #SMWeatherProvider
 PRODUCT_COPY_FILES += \
     vendor/cm/prebuilt/SMWeatherProvider/SMWeatherProvider.apk:system/app/SMWeatherProvider/SMWeatherProvider.apk
