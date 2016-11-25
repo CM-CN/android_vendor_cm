@@ -175,7 +175,6 @@ PRODUCT_PACKAGES += \
     AudioFX \
     CMFileManager \
     CMSettingsProvider \
-    CMUpdater \
     CMWallpapers \
     CyanogenSetupWizard \
     PhoneLocationProvider \
