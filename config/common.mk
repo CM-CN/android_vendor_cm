@@ -105,12 +105,12 @@ PRODUCT_COPY_FILES += \
     vendor/cm/prebuilt/common/etc/init.local.rc:root/init.cm.rc
 
 # Google PinYin
-PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
-    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.apk' \
-    -printf '%p:system/app/GooglePinYin/%f ')
-PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
-    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.so' \
-    -printf '%p:system/app/GooglePinYin/lib/arm/%f ')
+#PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
+#    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.apk' \
+#    -printf '%p:system/app/GooglePinYin/%f ')
+#PRODUCT_COPY_FILES += $(shell test -d vendor/cm/prebuilt/google/app/GooglePinYin && \
+#    find vendor/cm/prebuilt/google/app/GooglePinYin -name '*.so' \
+#    -printf '%p:system/app/GooglePinYin/lib/arm/%f ')
 
 #SMWeatherProvider
 PRODUCT_COPY_FILES += \
